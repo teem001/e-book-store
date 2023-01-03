@@ -6,11 +6,13 @@ import com.example.mybookstor.requests.BookRequest;
 import com.example.mybookstor.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Service
 public class BookServiceImplementations implements BookService {
     private final BookRepository bookRepository;
 

@@ -30,7 +30,7 @@ public class BookController
     }
 
 
-    @PostMapping("")
+    @PostMapping("/add")
     public  String addBookToStore(Model model)
     {
 
@@ -42,25 +42,25 @@ public class BookController
 
     }
 
-    @GetMapping("")
+    @GetMapping("/add")
     public String saveBookToDB(@ModelAttribute("addBook") BookRequest newBook)
     {
         bookService.addABookToCollection(newBook);
 
         return "redirect:/books";
     }
-    @PutMapping()//TODO this and addBookTOStore must have the same implementation for the sake of model attribute
+    @PutMapping("/update")//TODO this and addBookTOStore must have the same implementation for the sake of model attribute
     public String updateBook(@RequestParam("bookId")long bookId, Model model)
     {
         Book book = bookService.getABook(bookId);
 
         model.addAttribute("book", book);
 
-        return"";
+        return"update";
 
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/delete")
     public String deleteABook(@RequestParam("bookId")long bookId)
     {
         bookService.deleteABook(bookId);

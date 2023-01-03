@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     {
         UserEntity user= new UserEntity();
 
-        userRepository.findByEmailAndPhone(userRequest).orElseThrow(()-> new UserExistException("user already exits"));
+        userRepository.findByEmailAndPhone(userRequest.getEmail(),userRequest.getPhone()).orElseThrow(()-> new UserExistException("user already exits"));
 
         modelMapper.map(userRequest,user);
 
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getEmail(),login.getPassword()));
 
-        Optional<UserEntity> optionalUser = userRepository.findByEmailAndPassword(login);
+        Optional<UserEntity> optionalUser = userRepository.findByEmailAndPassword(login.getEmail(),login.getPassword());
 
         return optionalUser.isPresent()? "successful": "unsuccessful";
     }

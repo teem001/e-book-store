@@ -32,15 +32,14 @@ public class SecurityConfig {
 
     private final JwtAuth jwtAuth;
 
-    private final PasswordAndUsernameAuthentication passwordAndUsernameAuthentication;
 
     @Bean
     public  SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/index").permitAll()
-                .requestMatchers(HttpMethod.DELETE,"/ " ).hasAuthority(ADMIN.name())
+                .anyRequest()
+                .permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
