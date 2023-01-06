@@ -4,9 +4,34 @@ xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
   <meta>
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
+<style>
+  input { display: block;
+    border-radius: 10px;
+    border: 0px;
+    margin: 10px;
+    height: 30px;
+    width: 100%;
+  }
+  input::placeholder{
+    text-align: center;
+  }
+  body, form{
+text-align: center;
+    margin: auto;
+
+  }
+  .button{
+    width: 200px;
+    margin: auto;
+  }
+  .button:hover{
+    background: ghostwhite;
+  }
+
+</style>
 <h1>Welcome to MyBook Store</h1>
 <form th:action="@{/v1/user/register}" th:method="post" th:object="${user}">
   <label>
@@ -27,10 +52,10 @@ xmlns:th="http://www.thymeleaf.org">
   <label>
     <input type="text" th:field="*{confirmedPassword}" placeholder="confirm your password" required>
   </label>
-  <input type="submit" value="Become a member!">
+  <input type="submit" value="Become a member!" class="button">
 </form>
 
-<h3>Already a user? <a th:href="@{login-page.html}">login here</a>. </h3>
+<h3>Already a user? <a th:href="@{/v1/user/login-page}">login here</a>. </h3>
 
 </body>
 </html>

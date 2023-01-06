@@ -25,9 +25,9 @@ public class MyUserDetails implements UserDetails {
         this.username = user.getEmail();
         this.password = user.getPassword();
         this.isEnabled = true;
-        this.isAccountNonExpired = false;
-        this.isAccountNonLocked = false;
-        this.isCredentialsNonExpired = false;
+        this.isAccountNonExpired = true;
+        this.isAccountNonLocked = true;
+        this.isCredentialsNonExpired = true;
         this.grantedAuthorities = user.getRole().grantedAuthorities();
 
 

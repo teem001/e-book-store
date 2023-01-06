@@ -7,27 +7,75 @@
     <title>Title</title>
 </head>
 <body>
+<style>
+    body{
+        text-align: center;
+    }
+    .nav-link{
+        margin: 2px;
+        border-radius: 3px ;
+        font-size: 30px;
+        display: inline;
+        text-decoration: none;
+    ;
+    }
+    .nav-link:hover{
+        text-decoration: underline ;
+
+    }
+</style>
 <h1>
-    Welcome to MyBook <small>home of all learner</small>
+    Welcome to MyBook
 </h1>
-<P>
-    <a th:href="@{/v1/user/create}">Click Here to Be a member</a>
-  <a th:href="@{}">Click Here to Be a login</a>
-</P>
-<hr>
+<!--<P>-->
+<!--    <a th:href="@{/v1/user/create}">Click Here to Be a member</a>-->
+<!--  <a th:href="@{}">Click Here to Be a login</a>-->
+<!--</P>-->
+
 <P>Get your books available collections here</P>
-<hr>
+
+<div class = "nav-bar">
+    <a href="" class="nav-link" >Home</a>
+    <a href="" class="nav-link" >Profile</a>
+    <a href="" class="nav-link" >Discover</a>
+    <a href="" class="nav-link" >About</a>
+    <a href="" class="nav-link" >New Release</a>
+    <a href="" class="nav-link">search</a>
+</div>
+<div class="side">
+<a>add book</a>
+    <a>edit book</a>
+
+</div>
+<div class = "main-page">
+    <section class="new-release">
+        <p>New Release</p>
+        <ul th:each="book:${books}">
+            <div th:if="${book.getDateUpdated()-time == 24}">
+                <p><img th:src="${book.imagePath}"> </p>
+                <p th:text="${book.bookTitle}"></p>
+                <p th:text="${book.author}"></p>
+                <p th:text="${book.bookPrice}"></p>
+                <p th:text="${book.getGenre()}"></p>
+            </div>
+
+        </ul>
+    </section>
+
 <section>
-    <table class="table">
+    <ul class="book-list">
 
 
-        <tr th:each="book : ${books}" >
+        <ul th:each="book : ${books}" >
+            <p><img th:src="${book.imagePath}"> </p>
             <p th:text="${book.bookTitle}"></p>
-            <p th:text="${employee.lastName}"></p>
-            <p th:text="${employee.email}"></p>
-        </tr>
+            <p th:text="${book.author}"></p>
+            <p th:text="${book.bookPrice}"></p>
+            <p th:text="${book.getGenre()}"></p>
+        </ul>
 
-    </table>
+    </ul>
 </section>
+</div>
 </body>
 </html>

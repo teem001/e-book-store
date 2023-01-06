@@ -30,7 +30,7 @@ public class UserController {
     @PostMapping("/register")
     public String createUser(@ModelAttribute("user") UserRequest userRequest ){
         userService.createNewUser(userRequest);
-        return "home-page";
+        return "redirect:/v1/user/login";
     }
 
     @GetMapping("/login")
@@ -39,6 +39,16 @@ public class UserController {
         model.addAttribute("login",loginDto);
         return "login-page";
     }
+
+    @PostMapping("/login")
+    public String userLogin(@ModelAttribute("login")LoginDto loginDto){
+        userService.logIn(loginDto);
+
+        return "home-page";
+
+    }
+
+
 
 
 }

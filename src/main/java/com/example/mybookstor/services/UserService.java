@@ -12,4 +12,5 @@ public interface UserService {
     String createNewUser(UserRequest userRequest);
     String logIn(LoginDto login);
     Map<Role,List<UserEntity> > getAllUser();
+    String switchUserRole(Role role, long userId);
 }

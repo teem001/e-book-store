@@ -6,9 +6,12 @@ import com.example.mybookstor.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -30,6 +33,19 @@ public class AdminController
         return "super_admin_page";
 
     }
+
+    @GetMapping("/update")
+    public String updateUserRole(Model model){
+        UserEntity user = new UserEntity();
+        model.addAttribute("user", user);
+        return "update_page";
+    }
+    @PutMapping
+    public String updateUserRole(@ModelAttribute ("user") UserEntity user){
+       userService.switchUserRole(user.getRole(), user.getUserId());
+       return "redirect:/admin";
+    }
+
 
 
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @Getter
@@ -13,4 +14,5 @@ public class BookRequest {
     private String bookTitle;
     private String author;
     private Long bookPrice;
+    private MultipartFile bookImagePath;
 }

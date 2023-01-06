@@ -9,15 +9,17 @@ import com.example.mybookstor.response.LoginDto;
 import com.example.mybookstor.services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.example.mybookstor.enums.Role.ADMIN;
-import static com.example.mybookstor.enums.Role.USER;
+import static com.example.mybookstor.enums.Role.*;
 
 
 @Service
@@ -27,19 +29,28 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private  final AuthenticationManager authenticationManager;
 
+    private  final PasswordEncoder passwordEncoder;
+
 
     @Override
     public String createNewUser(UserRequest userRequest)
     {
-        UserEntity user= new UserEntity();
+       Optional <UserEntity> optionalUser= userRepository.findByEmail(userRequest.getEmail());
+       UserEntity user = new UserEntity();
 
-        userRepository.findByEmailAndPhone(userRequest.getEmail(),userRequest.getPhone()).orElseThrow(()-> new UserExistException("user already exits"));
+       if (optionalUser.isPresent()){
+           throw new UserExistException("user exist");
+       }
 
         modelMapper.map(userRequest,user);
+       user.setRole(SUPER_ADMIN);
+       user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+
 
         userRepository.save(user);
 
         return "successful";
+
 
     }
 
@@ -81,5 +92,14 @@ public class UserServiceImpl implements UserService {
                return allUserList; }).collect(Collectors.toSet());
 
         return allUserList;
+    }
+
+    @Override
+    public String switchUserRole(Role role, long userId) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(()-> new UsernameNotFoundException("User do not exist"));
+
+        user.setRole(role);
+
+        return "success";
     }
 }

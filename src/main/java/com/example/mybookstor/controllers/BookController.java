@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,7 +24,10 @@ public class BookController
     {
         List<Book> books = bookService.getAllBooks();
 
+        Date time = new Date(System.currentTimeMillis());
+
         model.addAttribute("books",books);
+        model.addAttribute("time", time);
 
         return "home-page";
 

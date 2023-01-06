@@ -2,10 +2,7 @@ package com.example.mybookstor.entities;
 
 import com.example.mybookstor.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "uses")
@@ -13,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
+@ToString
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +18,11 @@ public class UserEntity {
     private String firstName;
     private String lastName;
     private  String password;
+    @Column(unique = true)
     private String email;
     private String phone;
     private String imgPath;
+    @Enumerated(EnumType.STRING)
     private Role role;
 
 }

@@ -1,5 +1,7 @@
 package com.example.mybookstor.services.serviceImplementations;
 
+//import com.example.mybookstor.config.cloudinary.CloudinaryConfig;
+//import com.example.mybookstor.config.cloudinary.CloudinaryUtil;
 import com.example.mybookstor.entities.Book;
 import com.example.mybookstor.repositories.BookRepository;
 import com.example.mybookstor.requests.BookRequest;
@@ -8,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +19,11 @@ import java.util.Optional;
 public class BookServiceImplementations implements BookService {
     private final BookRepository bookRepository;
 
+//    private final CloudinaryConfig config;
+//
+//    private final CloudinaryUtil cloudinaryUtil;
+
+
 
     @Override
     public List<Book> getAllBooks() {
@@ -23,15 +31,32 @@ public class BookServiceImplementations implements BookService {
     }
 
     @Override
-    public String addABookToCollection(BookRequest bookRequest) {
+    public String addABookToCollection(BookRequest bookRequest)
+    {
+
         Book book = new Book();
         BeanUtils.copyProperties(bookRequest,book);
-        bookRepository.save(book);
-        return "success";
+        String bookPath = "";
 
-    }
+        Book savedBook=   bookRepository.save(book);
+//        try
+//        {
+//            bookPath = cloudinaryUtil.createOrUpdateImage(bookRequest.getBookImagePath(), savedBook);
+//
+//        }
+//        catch (IOException e)
+//        {
+//            e.getMessage();
+//
+//            }
+//            if (bookPath == null) return "operation  unsuccessful due to network";
+//
+//            book.setImagePath(bookPath);
+            return "success";
 
-    @Override
+        }
+
+        @Override
     public String updateABook(BookRequest bookRequest) {
         return null;
     }
